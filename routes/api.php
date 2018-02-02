@@ -26,3 +26,9 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
   Route::get('/gitMe', 'GithubController@index');
 });
+
+Route::group(['prefix' => 'scan', 'middleware' => 'auth:api'], function() {
+  Route::get('/', 'ReposController@index');
+  Route::get('/getListRepos/{username?}', 'ReposController@getListRepos');
+  Route::get('/getDetailRepo/{name}', 'ReposController@getDetailRepo');
+});
