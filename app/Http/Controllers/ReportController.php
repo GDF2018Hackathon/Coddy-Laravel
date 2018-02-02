@@ -14,8 +14,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        return response(['code' => 400, 'message' => 'Vous devez avoir un code de rapport.'], 400)
-                ->header('Accept', 'application/json');
+        return response(['code' => 400, 'code_text' => 'Bad Request', 'message' => 'Vous devez avoir un code de rapport.'], 400)->header('Accept', 'application/json');
     }
 
     /**
