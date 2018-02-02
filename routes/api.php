@@ -25,3 +25,5 @@ Route::apiResource('report', 'ReportController', [
 Route::apiResource('report', 'ReportController', [
 	'only' => ['index'],
 ]);
+
+Route::apiResource('donnation', 'DonnationController');

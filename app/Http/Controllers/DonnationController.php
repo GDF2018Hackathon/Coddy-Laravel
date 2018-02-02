@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class DonnationController extends Controller
 {
+
+    const PAYPAL_ME_USER = 'CoddyMe';
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +17,7 @@ class DonnationController extends Controller
      */
     public function index()
     {
-        //
+        return self::PAYPAL_ME_USER;
     }
 
     /**
