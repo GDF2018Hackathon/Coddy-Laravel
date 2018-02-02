@@ -14,7 +14,8 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        return response(['code' => 400, 'message' => 'Vous devez avoir un code de rapport.'], 400)
+                ->header('Accept', 'application/json');
     }
 
     /**
@@ -44,9 +45,9 @@ class ReportController extends Controller
      * @param  \App\Report  $report
      * @return \Illuminate\Http\Response
      */
-    public function show(Report $report)
+    public function show($code, Report $report)
     {
-        //
+        return response()->json($report->getReportByCode($code));
     }
 
     /**
