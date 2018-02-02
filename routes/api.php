@@ -16,3 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'scan'], function () {
+    Route::get('/{id}', 'ScanController@scanAll');
+
+    Route::get('/snif/{id}', 'SnifController@scan');
+
+    Route::get('/metric/{id}', 'MetricController@scan');
+
+});
