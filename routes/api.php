@@ -32,3 +32,9 @@ Route::group(['prefix' => 'scan', 'middleware' => 'auth:api'], function() {
   Route::get('/getListRepos/{username?}', 'ReposController@getListRepos');
   Route::get('/getDetailRepo/{name}', 'ReposController@getDetailRepo');
 });
+
+Route::group(['prefix' => 'report'], function() {
+	Route::get('/', 'ReportController@index');
+	Route::get('/{code}', 'ReportController@getReport')->where('code', '[a-zA-Z0-9]{8,12}');
+	Route::get('/mail/{code}', 'ReportController@sendMail')->where(['code' => '[a-zA-Z0-9]{8,12}']);
+});
