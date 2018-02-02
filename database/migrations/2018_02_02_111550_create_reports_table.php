@@ -13,7 +13,7 @@ class CreateReportsTable extends Migration
      */
     public function up()
     {
-        Schema::table('reports', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
           $table->increments('id');
           $table->string('code')->unique();
           $table->string('repo_id');
@@ -35,7 +35,8 @@ class CreateReportsTable extends Migration
     public function down()
     {
         Schema::table('reports', function (Blueprint $table) {
-            //
+          Schema::dropIfExists('reports');
+
         });
     }
 }

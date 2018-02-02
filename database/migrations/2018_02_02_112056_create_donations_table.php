@@ -13,7 +13,7 @@ class CreateDonationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('donations', function (Blueprint $table) {
+        Schema::create('donations', function (Blueprint $table) {
           $table->increments('id');
           $table->integer('user_id')->unsigned()->nullable();
           $table->string('amount');
@@ -32,7 +32,8 @@ class CreateDonationsTable extends Migration
     public function down()
     {
         Schema::table('donations', function (Blueprint $table) {
-            //
+          Schema::dropIfExists('donations');
+
         });
     }
 }

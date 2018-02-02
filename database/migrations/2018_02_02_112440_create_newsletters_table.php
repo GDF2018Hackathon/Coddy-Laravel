@@ -13,7 +13,7 @@ class CreateNewslettersTable extends Migration
      */
     public function up()
     {
-        Schema::table('newsletters', function (Blueprint $table) {
+        Schema::create('newsletters', function (Blueprint $table) {
           $table->increments('id');
           $table->string('name');
           $table->string('title')->nullable();
@@ -31,7 +31,8 @@ class CreateNewslettersTable extends Migration
     public function down()
     {
         Schema::table('newsletters', function (Blueprint $table) {
-            //
+          Schema::dropIfExists('newsletters');
+
         });
     }
 }
