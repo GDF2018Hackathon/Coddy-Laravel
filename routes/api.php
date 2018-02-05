@@ -31,10 +31,12 @@ Route::group(['prefix' => 'scan', 'middleware' => 'auth:api'], function() {
   Route::get('/', 'ReposController@index');
   Route::get('/getListRepos/{username?}', 'ReposController@getListRepos');
   Route::get('/getDetailRepo/{name}', 'ReposController@getDetailRepo');
+  Route::get('/{id}', 'ScanController@scanAll');
+  Route::get('/snif/{id}', 'SnifController@scan');
+  Route::get('/metric/{id}', 'MetricController@scan');
 });
 
 Route::group(['prefix' => 'report'], function() {
 	Route::get('/', 'ReportController@index');
 	Route::get('/{code}', 'ReportController@getReport')->where('code', '[a-zA-Z0-9]{8,12}');
 	Route::get('/mail/{code}', 'ReportController@sendMail')->where(['code' => '[a-zA-Z0-9]{8,12}']);
-});
