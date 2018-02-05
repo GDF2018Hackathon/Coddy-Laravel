@@ -40,3 +40,4 @@ Route::group(['prefix' => 'report'], function() {
 	Route::get('/', 'ReportController@index');
 	Route::get('/{code}', 'ReportController@getReport')->where('code', '[a-zA-Z0-9]{8,12}');
 	Route::get('/mail/{code}', 'ReportController@sendMail')->where(['code' => '[a-zA-Z0-9]{8,12}']);
+});
