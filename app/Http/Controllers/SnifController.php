@@ -20,7 +20,6 @@ class SnifController extends Controller
       ];
 
       $result = $this->exeCommand('phpcs --ignore='. implode(',', $ignore) .' --standard=PSR2 --report=json /tmp/'.$id);
-      // return response()->json(json_decode($result));
-      return $result;
+      return response()->json(json_decode($result));
     }
 }

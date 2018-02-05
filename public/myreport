@@ -1,0 +1,116 @@
+{
+    "Process": {
+        "name": "Process",
+        "interface": false,
+        "methods": [
+            {
+                "name": "__construct",
+                "role": null,
+                "public": true,
+                "private": false,
+                "_type": "Hal\\Metric\\FunctionMetric"
+            },
+            {
+                "name": "runCom",
+                "role": null,
+                "public": false,
+                "private": true,
+                "_type": "Hal\\Metric\\FunctionMetric"
+            },
+            {
+                "name": "setPid",
+                "role": "setter",
+                "_type": "Hal\\Metric\\FunctionMetric"
+            },
+            {
+                "name": "getPid",
+                "role": "getter",
+                "_type": "Hal\\Metric\\FunctionMetric"
+            },
+            {
+                "name": "status",
+                "role": null,
+                "public": true,
+                "private": false,
+                "_type": "Hal\\Metric\\FunctionMetric"
+            },
+            {
+                "name": "start",
+                "role": null,
+                "public": true,
+                "private": false,
+                "_type": "Hal\\Metric\\FunctionMetric"
+            },
+            {
+                "name": "stop",
+                "role": null,
+                "public": true,
+                "private": false,
+                "_type": "Hal\\Metric\\FunctionMetric"
+            },
+            {
+                "name": "debug_to_console",
+                "role": null,
+                "public": true,
+                "private": false,
+                "_type": "Hal\\Metric\\FunctionMetric"
+            }
+        ],
+        "nbMethodsIncludingGettersSetters": 8,
+        "nbMethods": 6,
+        "nbMethodsPrivate": 1,
+        "nbMethodsPublic": 5,
+        "nbMethodsGetter": 1,
+        "nbMethodsSetters": 1,
+        "ccn": 6,
+        "ccnMethodMax": 2,
+        "externals": [],
+        "parents": [],
+        "lcom": 2,
+        "length": 75,
+        "vocabulary": 24,
+        "volume": 343.87,
+        "difficulty": 7.5,
+        "effort": 2579.04,
+        "level": 0.13,
+        "bugs": 0.11,
+        "time": 143,
+        "intelligentContent": 45.85,
+        "number_operators": 30,
+        "number_operands": 45,
+        "number_operators_unique": 6,
+        "number_operands_unique": 18,
+        "cloc": 5,
+        "loc": 68,
+        "lloc": 63,
+        "mi": 62.57,
+        "mIwoC": 42.18,
+        "commentWeight": 20.39,
+        "kanDefect": 0.5,
+        "relativeStructuralComplexity": 4,
+        "relativeDataComplexity": 2.13,
+        "relativeSystemComplexity": 6.13,
+        "totalStructuralComplexity": 32,
+        "totalDataComplexity": 17,
+        "totalSystemComplexity": 49,
+        "pageRank": 1,
+        "afferentCoupling": 0,
+        "efferentCoupling": 0,
+        "instability": 0,
+        "violations": {},
+        "_type": "Hal\\Metric\\ClassMetric"
+    },
+    "tree": {
+        "name": "tree",
+        "depthOfInheritanceTree": 1,
+        "violations": {},
+        "_type": "Hal\\Metric\\ProjectMetric"
+    },
+    "composer": {
+        "name": "composer",
+        "packages": [],
+        "packages-installed": [],
+        "violations": {},
+        "_type": "Hal\\Metric\\ProjectMetric"
+    }
+}

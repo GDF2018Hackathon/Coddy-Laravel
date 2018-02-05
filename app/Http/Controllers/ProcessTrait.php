@@ -18,14 +18,9 @@ trait ProcessTrait
   {
     $process = new Process($commande);
 
-    try {
-          $process->mustRun();
-          Log::info('process success : '.$process->getOutput());
-          echo $process->getOutput();
-      } catch (ProcessFailedException $e) {
-          echo $e->getMessage();
-          Log::info('process error : '.$e->getMessage());
-      }
+    $process->run();
+
+    return $process->getOutput();
   }
 
 }
