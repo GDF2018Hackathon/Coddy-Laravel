@@ -11,7 +11,10 @@ class Report extends Model
 
 	public function getReportByCode($code)
 	{
-		return $this->where('code', $code)->get();
+		$report = $this->where('code', $code)->get()->toArray();
+		$report = $report[0];
+		$report['content'] = json_decode($report['content']);
+		return $report;
 	}
 
 }
