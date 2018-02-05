@@ -17,7 +17,7 @@ class CreateFaqsTable extends Migration
           $table->increments('id');
           $table->string('question');
           $table->string('answer')->nullable();
-          $table->integer('category_id');
+          $table->integer('category_id')->unsigned();
           $table->boolean('status');
           $table->dateTimeTz('created_at');
           $table->foreign('category_id')->references('id')->on('categories');

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class ReportsTableSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class ReportsTableSeeder extends Seeder
         'user_id' => 1,
         'project_name' => "test",
         'content' => file_get_contents(storage_path('reports/generated.json')),
-        'created_at' =>Carbon::now()->format('Y-m-d H:i:s')
+        'created_at' => Carbon::now()->format('Y-m-d H:i:s')
     ]);
     }
 }

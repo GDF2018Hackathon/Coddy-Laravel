@@ -15,12 +15,12 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('code')->unique();
+          $table->string('code',25)->unique();
           $table->string('repo_id');
           $table->string('project_name');
           $table->integer('user_id')->unsigned();
           $table->string('email');
-          $table->boolean('public');
+          $table->boolean('public')->default(true);
           $table->longText('content');
           $table->dateTimeTz('created_at');
           $table->foreign('user_id')->references('id')->on('users');
