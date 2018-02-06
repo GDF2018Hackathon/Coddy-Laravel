@@ -32,9 +32,6 @@ class CreateLogsTable extends Migration
      */
     public function down()
     {
-        Schema::table('logs', function (Blueprint $table) {
-          Schema::dropIfExists('logs');
-
-        });
+        Schema::dropIfExists('logs');
     }
 }

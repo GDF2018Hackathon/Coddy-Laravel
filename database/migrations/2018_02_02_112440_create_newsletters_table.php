@@ -30,9 +30,6 @@ class CreateNewslettersTable extends Migration
      */
     public function down()
     {
-        Schema::table('newsletters', function (Blueprint $table) {
-          Schema::dropIfExists('newsletters');
-
-        });
+        Schema::dropIfExists('newsletters');
     }
 }

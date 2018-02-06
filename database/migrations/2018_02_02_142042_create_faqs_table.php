@@ -31,9 +31,6 @@ class CreateFaqsTable extends Migration
      */
     public function down()
     {
-        Schema::table('faqs', function (Blueprint $table) {
-          Schema::dropIfExists('faqs');
-
-        });
+        Schema::dropIfExists('faqs');
     }
 }

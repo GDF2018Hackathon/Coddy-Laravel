@@ -19,30 +19,47 @@ use Illuminate\Http\Request;
 
 Route::get('/', function()
 {
-  return response()->json('Hello, Welcome on Coddy Scanner');
+  return response(['code' => 418, 'message' => 'Hello, Welcome on Coddy Scanner'], 418)
+          ->header('Content-Type', 'application/json')
+          ->header('Accept', 'application/json');
 });
 
-Route::post('register', 'Auth\RegisterController@register');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout');
+// Route::post('register', 'Auth\RegisterController@register');
+// Route::post('login', 'Auth\LoginController@login');
+// Route::get('logout', 'Auth\LoginController@logout');
+
 
 Route::group(['middleware' => ['web']], function () {
+  //github
   Route::get('login/github', 'Auth\LoginController@redirectToProvider');
   Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
-  Route::get('/gitMe', 'GithubController@index');
+  // Route::get('/gitMe', 'GithubController@index');
+
+  //bitbucket
+  Route::get('login/bitbucket', 'Auth\LoginController@redirectToProviderbitbucket');
+  Route::get('login/bitbucket/callback', 'Auth\LoginController@handleProviderCallbackbitbucket');
+  // Route::get('/gitMeBitBucket', 'BitbucketController@index');
+
+  //Route::get('login', 'API\UserController@login');
+  Route::get('loginbygithub', 'API\UserController@register');
+  Route::get('loginbybitbucket', 'API\UserController@registerbitbucket');
+  Route::get('user', 'API\UserController@details');
+  Route::get('logout', 'Auth\LoginController@logout');
 });
 
-// Route::group(['prefix' => 'scan', 'middleware' => 'auth:api'], function() {
-Route::group(['prefix' => 'scan'], function() {
+Route::group(['prefix' => 'scan', "middleware" => ['web','isuserapi']], function() {
+// Route::group(['prefix' => 'scan'], function() {
   // Route::get('/', 'ReposController@index');
   // Route::get('/getListRepos/{username?}', 'ReposController@getListRepos');
   // Route::get('/getDetailRepo/{name}', 'ReposController@getDetailRepo');
+
   Route::get('/', function()
   {
-    return response(['code' => 400, 'message' => 'Hello, You should have a scan ID'], 400)
-            ->header('Content-Type', 'application/json')
-            ->header('Accept', 'application/json');
+      return response(['code' => 400, 'message' => 'Hello, You should have a scan ID'], 400)
+              ->header('Content-Type', 'application/json')
+              ->header('Accept', 'application/json');
   });
+
   Route::get('/{id}', 'ScanController@scanAll');
   Route::get('/snif/{id}', 'SnifController@scan');
   Route::get('/metric/{id}', 'MetricController@scan');

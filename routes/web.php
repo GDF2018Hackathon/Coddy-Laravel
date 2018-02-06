@@ -16,10 +16,14 @@ Route::get('/', function()
   return redirect('/api');
 });
 
-
+//
 // Auth::routes();
-
-Route::get('login/github', 'Auth\LoginController@redirectToProvider');
-Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/gitMe', 'GithubController@index');
+//
+// Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+// Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
+// Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/gitMe', 'GithubController@index');
+//
+// Route::get('login/bitbucket', 'Auth\LoginController@redirectToProviderbitbucket');
+// Route::get('login/bitbucket/callback', 'Auth\LoginController@handleProviderCallbackbitbucket');
+// Route::get('/gitMeBitBucket', 'BitbucketController@index');

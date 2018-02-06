@@ -31,9 +31,6 @@ class CreateDonationsTable extends Migration
      */
     public function down()
     {
-        Schema::table('donations', function (Blueprint $table) {
-          Schema::dropIfExists('donations');
-
-        });
+        Schema::dropIfExists('donations');
     }
 }

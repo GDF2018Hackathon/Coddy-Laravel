@@ -35,8 +35,13 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
     'github' => [
-        'client_id' => '6a638068a0f01f03ab08',         // Your GitHub Client ID
-        'client_secret' => '53f9381414e6fd3652a3380831d3e992f6e8aa9f', // Your GitHub Client Secret
-        'redirect' => env("APP_URL").'/gitMe',
-    ]
+        'client_id' => env("GITHUB_CLIENT_ID"),         // Your GitHub Client ID
+        'client_secret' => env('GITHUB_CLIENT_SECRET'), // Your GitHub Client Secret
+        'redirect' => env("APP_URL").'/api/loginbygithub',
+    ],
+    'bitbucket' => [
+        'client_id' => env('BITBUCKET_CLIENT_ID'),
+        'client_secret' => env('BITBUCKET_CLIENT_SECRET'),
+        'redirect' => env("APP_URL").'/api/loginbybitbucket',
+    ],
 ];

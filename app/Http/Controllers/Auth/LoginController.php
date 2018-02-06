@@ -53,20 +53,34 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {
         $user = Socialite::driver('github')->user();
-
         //$user->token;
     }
+
+    public function redirectToProviderBitbucket()
+       {
+           return Socialite::driver('bitbucket')->redirect();
+       }
+
+       /**
+        * Obtain the user information from GitHub.
+        *
+        * @return \Illuminate\Http\Response
+        */
+       public function handleProviderCallbackBitbucket()
+       {
+           $user = Socialite::driver('bitbucket')->user();
+
+           // $user->token;
+       }
 
     public function login(Request $request)
     {
       //  $this->validateLogin($request);
 
-        $id = User::where('email', $request["email"])->get()->toArray();
+        $id = User::where('social_id', $request["social_id"])->get()->toArray();
         if (sizeOf($id) > 0) {
           $userExist = User::find($id[0]["id"]);
-          $userExist->generateToken();
-          $userExist->save();
-          Auth::loginUsingId($id[0]["id"]);
+          Auth::login($userExist);
           return response()->json([
               'data' => $userExist->toarray(),
           ]);
@@ -89,6 +103,7 @@ class LoginController extends Controller
         $user = Auth::guard('api')->user();
 
         if ($user) {
+            $user->remember_token = null;
             $user->api_token = null;
             $user->save();
         }

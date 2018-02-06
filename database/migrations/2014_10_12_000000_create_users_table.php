@@ -17,11 +17,10 @@ class CreateUsersTable extends Migration
           $table->increments('id');
               $table->string('name');
               $table->string('nickname');
-              $table->string('github_id');
-              $table->string('email', 190)->unique();
+              $table->string('social_id');
+              $table->string('email', 190);
               $table->boolean('newsletter');
               $table->rememberToken();
-              $table->string('api_token', 60)->unique()->nullable();
               $table->timestamps();
         });
     }
