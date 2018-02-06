@@ -53,3 +53,14 @@ Route::group(['prefix' => 'report'], function() {
 	Route::get('/{code}', 'ReportController@getReport')->where('code', '[a-zA-Z0-9]{8,12}');
 	Route::get('/mail/{code}', 'ReportController@sendMail')->where(['code' => '[a-zA-Z0-9]{8,12}'])->middleware('auth:api');
 });
+
+Route::apiResource('report', 'ReportController', [
+	'only' => ['show'],
+	'parameters' => ['report' => 'code']
+]);
+
+Route::apiResource('report', 'ReportController', [
+	'only' => ['index'],
+]);
+
+Route::apiResource('donnation', 'DonnationController');
