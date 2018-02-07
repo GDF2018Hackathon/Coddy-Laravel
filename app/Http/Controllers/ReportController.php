@@ -19,15 +19,19 @@ class ReportController extends Controller
                ->header('Server', 'Coddy');
     }
 
+    public function testScan($repoName){
+      $this->dispatch(new ProcessScanRepo($repoName));
+    }
+
     public function getReport($code)
     {
-    	$Report = Report::where('code', $code)->get();
-    	if( !empty( $Report ) ){
-	    	$Report = $Report[0];
-	    	$Report->content = json_decode($Report->content);
-	    	return response()->json($Report);
+    	$report = Report::where('code', $code)->get()->toArray();
+    	if( !empty( $report ) ){
+        $report = $report[0];
+	    	$report['content'] = unserialize($report['content']);
+	    	return response()->json($report);
     	}else{
-    		abort(404);
+    		return response()->json(['code' => 404, 'message' => 'Report Not Found'], 404);
     	}
     }
 

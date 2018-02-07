@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Report extends Model
 {
 	protected $table = 'reports';
+	public $timestamps = false;
 
 	public function getReportByCode($code)
 	{
@@ -16,4 +17,5 @@ class Report extends Model
 		$report['content'] = json_decode($report['content']);
 		return $report;
 	}
+
 }
