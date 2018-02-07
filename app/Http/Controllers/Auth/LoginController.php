@@ -101,7 +101,6 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $user = Auth::guard('api')->user();
-
         if ($user) {
             $user->remember_token = null;
             $user->api_token = null;
@@ -109,5 +108,9 @@ class LoginController extends Controller
         }
         Auth::logout();
         return response()->json(['data' => 'User logged out.'], 200);
+    }
+
+    public function nickname(){
+      return $this->nickname;
     }
 }

@@ -11,7 +11,8 @@
         "laravel/passport": "^4.0",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
-        "phpmetrics/phpmetrics": "^2.3"
+        "phpmetrics/phpmetrics": "^2.3",
+        "tymon/jwt-auth": "1.0.0-rc.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",

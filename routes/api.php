@@ -45,25 +45,30 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('loginbybitbucket', 'API\UserController@registerbitbucket');
   Route::get('user', 'API\UserController@details');
   Route::get('logout', 'Auth\LoginController@logout');
+
+  // Route::get('repo/all', 'ReposController@index');
+  // Route::get('repo/getListRepos/{username?}', 'ReposController@getListRepos');
+  // Route::get('repo/getDetailRepo/{name}', 'ReposController@getDetailRepo');
+
 });
 
 Route::group(['prefix' => 'scan', "middleware" => ['web','isuserapi']], function() {
-// Route::group(['prefix' => 'scan'], function() {
-  // Route::get('/', 'ReposController@index');
-  // Route::get('/getListRepos/{username?}', 'ReposController@getListRepos');
-  // Route::get('/getDetailRepo/{name}', 'ReposController@getDetailRepo');
-
   Route::get('/', function()
   {
       return response(['code' => 400, 'message' => 'Hello, You should have a scan ID'], 400)
               ->header('Content-Type', 'application/json')
               ->header('Accept', 'application/json');
   });
-
   Route::get('/{id}', 'ScanController@scanAll');
   Route::get('/snif/{id}', 'SnifController@scan');
   Route::get('/metric/{id}', 'MetricController@scan');
 });
+Route::group(['prefix' => 'repo', "middleware" => ['web','isuserapi']], function() {
+  Route::get('all/{source?}', 'ReposController@index');
+  // Route::get('getListRepos/{username?}', 'ReposController@getListRepos');
+  Route::get('{name}/{source?}', 'ReposController@getDetailRepo');
+});
+
 
 Route::group(['prefix' => 'report'], function() {
 	Route::get('/', 'ReportController@index');
