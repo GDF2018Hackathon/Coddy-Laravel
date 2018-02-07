@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\User;
+use Validator;
+use Socialite;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class ApiBitbucketController extends Controller
 {
@@ -14,7 +19,7 @@ class ApiBitbucketController extends Controller
         'Pragma: no-cache',
         'Cache-Control: no-cache',
         'Accept: application/json',
-        'Authorization: Basic ZHluZXJAaG90bWFpbC5mcjphaXNoaXRlcnVrYXJh'
+        'Authorization: Bearer '.Auth::user()->api_token
       );
 
     $REQUEST = curl_init($url);

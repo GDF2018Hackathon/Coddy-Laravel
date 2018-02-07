@@ -58,6 +58,7 @@ class UserController extends Controller
           $user->email = $me->getEmail();
           $user->social_id = $me->getId();
           $user->newsletter = false;
+          $user->api_token = $token;
           $user->save();
           Auth::login($user);
           $success['token'] =  $user->createToken('MyApp')->accessToken;
@@ -70,6 +71,8 @@ class UserController extends Controller
            if(!empty($userArray)){
              Auth::login($userExist, true);
                $user = Auth::user();
+               $userExist->api_token = $token;
+               $userExist->save();
                $success['token'] =  $user->createToken('MyApp')->accessToken;
                return response()->json(['success' => $success], $this->successStatus);
            }
@@ -100,6 +103,7 @@ class UserController extends Controller
           }
           $user->email = $me->getEmail();
           $user->social_id = $me->getId();
+          $user->api_token = $token;
           $user->newsletter = false;
           $user->save();
           Auth::login($user);
@@ -110,6 +114,8 @@ class UserController extends Controller
           $id = User::where('email', $me->getEmail())->get()->toArray();
           $userExist = User::find($id[0]["id"]);
           $userArray = $userExist->toArray();
+          $userExist->api_token = $token;
+          $userExist->save();
            if(!empty($userArray)){
              Auth::login($userExist, true);
                $user = Auth::user();
