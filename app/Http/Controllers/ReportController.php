@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Report;
+use App\Jobs\ProcessScanRepo;
 
 class ReportController extends Controller
 {
@@ -20,7 +21,11 @@ class ReportController extends Controller
     }
 
     public function testScan($repoName){
-      $this->dispatch(new ProcessScanRepo($repoName));
+      $this->dispatch(new ProcessScanRepo('traquall', $repoName));
+    }
+
+    public function scanAll($user, $repoName , $branch = 'master',$path = '/'){
+      $this->dispatch(new ProcessScanRepo($user, $repoName , $path, $branch ));
     }
 
     public function getReport($code)
@@ -46,7 +51,7 @@ class ReportController extends Controller
     	]);
     }
 
-    
+
     /**
      * Show the form for creating a new resource.
      *
