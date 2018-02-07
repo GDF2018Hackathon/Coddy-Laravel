@@ -51,7 +51,7 @@ Route::group(['prefix' => 'scan'], function() {
 Route::group(['prefix' => 'report'], function() {
 	Route::get('/', 'ReportController@index');
 	Route::get('/{code}', 'ReportController@getReport')->where('code', '[a-zA-Z0-9]{8,12}');
-	Route::get('/mail/{code}', 'ReportController@sendMail')->where(['code' => '[a-zA-Z0-9]{8,12}'])->middleware('auth:api');
+	Route::get('/mail/{code}', 'ReportController@sendMail')->where(['code' => '[a-zA-Z0-9]{8,12}']);
 });
 
 Route::apiResource('report', 'ReportController', [

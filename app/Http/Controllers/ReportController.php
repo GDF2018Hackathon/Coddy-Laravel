@@ -33,7 +33,10 @@ class ReportController extends Controller
 
     public function sendMail($code, $template = 'mails.html.rapport')
     {
-    	$Report = Report::where('code', $code)->get();
+    	$Report = Report::where('code', $code)->get()->toArray();
+
+        dd($Report);
+
     	return view($template, [
     		'PROJECT' => 'Mon Project',
     		'ID_REPORT' => 'X12652QSD',
