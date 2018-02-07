@@ -61,7 +61,7 @@ class ReposController extends  Controller
 		if(Auth::check()){
 			$user = Auth::user();
 			$this->username = $user->nickname;
-			if( $source == 'github'	){
+			if( preg_match('/^[0-9]+$/', $this->user->social_id)	){
 				$res = APIGITHUB::getRepo($this->username, $name);
 				if( !isset($res->id) || empty($res->id)){
 					return response()->json($res);
