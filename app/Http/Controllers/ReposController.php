@@ -18,10 +18,11 @@ class ReposController extends  Controller
 	{
 		if(Auth::check()){
 				$user = Auth::user();
+				$this->user = $user;
 				$this->username = $user->nickname;
-				if( $source == 'github'	){
+				if( preg_match('/^[0-9]+$/', $this->user->social_id)	){
 					return response()->json(APIGITHUB::getRepos($this->username));
-				}else if( $source == 'bitbucket'	){
+				}else{
 					return response()->json(APIBITBUCKET::getRepos($this->username));
 				}
 		}

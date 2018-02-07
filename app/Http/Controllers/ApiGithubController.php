@@ -42,7 +42,7 @@ class ApiGithubController extends Controller
 		$url = self::URL . '/users/'. $user .'/repos';
 		$response = self::curlUrlRequest($url);
 		if( isset($response['CURLRESPONSE']) && !empty($response['CURLRESPONSE']) && $response['CURLRESPONSE'] != false && $response['CURLRESPONSE'] != NULL  ){
-			return response()->json($response['CURLRESPONSE']);
+			return json_decode($response['CURLRESPONSE']);
 		}else{
 			return response()->json(['code' => 500, 'message' => 'Error on curl response'], 500);
 		}
@@ -52,20 +52,20 @@ class ApiGithubController extends Controller
 	{
 		$url = self::URL . '/repos/'. $user .'/'.$name;
 		$response = self::curlUrlRequest($url);
-		return response()->json($response['CURLRESPONSE']);
+		return json_decode($response['CURLRESPONSE']);
 	}
 
 	static function getRepoLanguages($url)
 	{
 		$url = $url .'/languages';
 		$response = self::curlUrlRequest($url);
-		return response()->json($response['CURLRESPONSE']);
+		return json_decode($response['CURLRESPONSE']);
 	}
 
 	static function getRepoCommits($url)
 	{
 		$url = $url .'/commits';
 		$response = self::curlUrlRequest($url);
-		return response()->json($response['CURLRESPONSE']);
+		return json_decode($response['CURLRESPONSE']);
 	}
 }

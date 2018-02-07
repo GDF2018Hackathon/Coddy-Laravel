@@ -65,7 +65,7 @@ class UserController extends Controller
           $success['name'] =  $user->name;
           return response()->json(['success'=>$success], $this->successStatus);
         }else {
-          $id = User::where('email', $me->getEmail())->get()->toArray();
+          $id = User::where('social_id', $me->getId())->get()->toArray();
           $userExist = User::find($id[0]["id"]);
           $userArray = $userExist->toArray();
            if(!empty($userArray)){
@@ -111,7 +111,7 @@ class UserController extends Controller
           $success['name'] =  $user->name;
           return response()->json(['success'=>$success], $this->successStatus);
         }else {
-          $id = User::where('email', $me->getEmail())->get()->toArray();
+          $id = User::where('social_id', $me->getId())->get()->toArray();
           $userExist = User::find($id[0]["id"]);
           $userArray = $userExist->toArray();
           $userExist->api_token = $token;
