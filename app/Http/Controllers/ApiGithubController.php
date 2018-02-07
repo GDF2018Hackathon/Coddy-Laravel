@@ -41,7 +41,11 @@ class ApiGithubController extends Controller
 	{
 		$url = self::URL . '/users/'. $user .'/repos';
 		$response = self::curlUrlRequest($url);
-		return json_decode($response['CURLRESPONSE']);
+		if( isset($response['CURLRESPONSE']) && !empty($response['CURLRESPONSE']) && $response['CURLRESPONSE'] != false && $response['CURLRESPONSE'] != NULL  ){
+			return json_decode($response['CURLRESPONSE']);
+		}else{
+			return response()->json(['code' => 500, 'message' => 'Error on curl response'], 500);
+		}
 	}
 
 	static function getRepo($user, $name)

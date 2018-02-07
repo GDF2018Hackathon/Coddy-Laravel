@@ -43,13 +43,14 @@ Route::group(['prefix' => 'scan'], function() {
             ->header('Content-Type', 'application/json')
             ->header('Accept', 'application/json');
   });
-  Route::get('/{id}', 'ScanController@scanAll');
-  Route::get('/snif/{id}', 'SnifController@scan');
-  Route::get('/metric/{id}', 'MetricController@scan');
+  Route::get('/test/{repoName}', 'ReportController@testScan');
+  Route::get('/metric/{id}/{path?}', 'MetricController@scan');
+  Route::get('/{user}/{name}/{path?}', 'ScanController@scanAll');
+  // Route::get('/snif/{id}/', 'SnifController@scan');
 });
 
 Route::group(['prefix' => 'report'], function() {
 	Route::get('/', 'ReportController@index');
-	Route::get('/{code}', 'ReportController@getReport')->where('code', '[a-zA-Z0-9]{8,12}');
-	Route::get('/mail/{code}', 'ReportController@sendMail')->where(['code' => '[a-zA-Z0-9]{8,12}'])->middleware('auth:api');
+	Route::get('/{code}', 'ReportController@getReport')->where('code', '[a-zA-Z0-9\-]{10,30}');
+	Route::get('/mail/{code}', 'ReportController@sendMail')->where(['code' => '[a-zA-Z0-9]{10,30}']);
 });
