@@ -18,7 +18,9 @@ trait ProcessTrait
   {
     $process = new Process($commande);
 
-    $process->run();
+    $process->start();
+
+    $process->wait();
 
     return $process->getOutput();
   }

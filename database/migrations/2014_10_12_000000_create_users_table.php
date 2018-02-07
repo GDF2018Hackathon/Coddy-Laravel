@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
               $table->string('social_id');
               $table->string('email', 190);
               $table->boolean('newsletter');
+              $table->string('api_token', 60)->unique()->nullable();
               $table->rememberToken();
               $table->timestamps();
         });

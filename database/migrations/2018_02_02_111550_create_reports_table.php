@@ -22,6 +22,7 @@ class CreateReportsTable extends Migration
           $table->string('email');
           $table->boolean('public')->default(true);
           $table->longText('content');
+          $table->string('content_url', 250)->nullable();
           $table->dateTimeTz('created_at');
           $table->foreign('user_id')->references('id')->on('users');
         });

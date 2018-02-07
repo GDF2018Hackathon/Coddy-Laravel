@@ -176,6 +176,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Bschmitt\Amqp\AmqpServiceProvider::class,
 
         Barryvdh\Debugbar\ServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class
