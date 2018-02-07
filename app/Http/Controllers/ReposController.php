@@ -11,7 +11,7 @@ class ReposController extends Controller
 {
 	public $username;
 
-	function __construct($username = null,Request $request)
+	function __construct($username = null, Request $request)
 	{
 		$header = $request->header('Authorization');
 		$token = explode(" ",$header)[1];
