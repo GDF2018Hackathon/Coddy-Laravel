@@ -61,7 +61,7 @@ Route::group(['prefix' => 'scan', "middleware" => ['web','isuserapi']], function
   });
   Route::get('/test/{repoName}', 'ReportController@testScan');
   Route::get('/metric/{id}/{path?}', 'MetricController@scan');
-  Route::get('/{user}/{name}/{path?}', 'ScanController@scanAll');
+  Route::get('/{user}/{reponame}/{branch?}/{path?}', 'ReportController@scanAll');
   // Route::get('/snif/{id}/', 'SnifController@scan');
 });
 Route::group(['prefix' => 'repo', "middleware" => ['web','isuserapi']], function() {

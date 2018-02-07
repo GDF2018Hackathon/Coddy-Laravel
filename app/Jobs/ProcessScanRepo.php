@@ -16,6 +16,7 @@ use App\Report;
 use Carbon\Carbon;
 use Auth;
 use Illuminate\Support\Facades\Log;
+use App\User;
 
 /**
  * @mixin \Eloquent
@@ -26,6 +27,7 @@ class ProcessScanRepo implements ShouldQueue
     use ProcessTrait;
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private $user_name;
     private $repo_name;
     private $path;
     private $branch;
@@ -35,8 +37,9 @@ class ProcessScanRepo implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($repo_name, $path = '/', $branch = 'master')
+    public function __construct($user_name, $repo_name, $path = '/', $branch = 'master')
     {
+        $this->user_name = $user_name;
         $this->repo_name = $repo_name;
         $this->path = $path;
         $this->branch = $branch;
@@ -49,16 +52,17 @@ class ProcessScanRepo implements ShouldQueue
      */
     public function handle()
     {
-      // $user_id = Auth::user()->id;
-      $user_id = 1;
-      // $user_email = Auth::user()->email;
-      $user_email = 'dyner@hotmail.fr';
+      $user = User::where('nickname', $this->user_name)->first();
+      if($user == null){
+        Log::warning("ProcessScanRepo #63 - Can't find user !");
+        return response()->json(['code' => 403, 'message' => "Can't find user !"], 403);
+      }
 
       $path = '/'. str_replace('-', '/', trim('/', $this->path));
 
       // Log::info($this->repo_name);
 
-      $github = ApiGithubController::getRepo('traquall', $this->repo_name);
+      $github = ApiGithubController::getRepo($this->user_name, $this->repo_name);
 
       if( !isset( $github->id ) || empty( $github->id ) ){
         Log::warning("ProcessScanRepo #64 - Github's api too request !");
@@ -83,10 +87,6 @@ class ProcessScanRepo implements ShouldQueue
       $metricResult = \App::call('App\Http\Controllers\MetricController@scan', ['id' => $repo_id, 'path' => $path]);
       $snifResult = \App::call('App\Http\Controllers\SnifController@scan', ['id' => $repo_id, 'path' => $path]);
 
-      //dd($snifResult);
-
-      // $snifResult = str_replace('/tmp/'.$repo_id, '', $snifResult);
-
       $snifResult_finale = [];
 
       $snifResult = $snifResult->original;
@@ -110,8 +110,8 @@ class ProcessScanRepo implements ShouldQueue
       $report->code = strtoupper(uniqid());
       $report->repo_id = $repo_id;
       $report->project_name = $this->repo_name;
-      $report->user_id = $user_id;
-      $report->email = $user_email;
+      $report->user_id = $user->id;
+      $report->email = $user->email;
       $report->public = $github->private;
       $report->content = serialize($result);
       $report->content_url = 'https://github.com/'. $github->full_name .'/blob/'. $this->branch .'/';
