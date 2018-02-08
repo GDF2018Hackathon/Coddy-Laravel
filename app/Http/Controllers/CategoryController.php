@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\FAQ;
 use Illuminate\Http\Request;
+use App\Category;
 
-class FAQController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class FAQController extends Controller
      */
     public function index()
     {
-        return  FAQ::all();
+      return Category::all()->toArray();
     }
 
     /**
@@ -41,21 +41,21 @@ class FAQController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\FAQ  $fAQ
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return FAQ::find($id)->toJson();
+      return Category::find($id)->toArray();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\FAQ  $fAQ
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(FAQ $fAQ)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +64,10 @@ class FAQController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\FAQ  $fAQ
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FAQ $fAQ)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +75,10 @@ class FAQController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\FAQ  $fAQ
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FAQ $fAQ)
+    public function destroy($id)
     {
         //
     }

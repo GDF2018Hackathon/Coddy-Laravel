@@ -86,4 +86,7 @@ Route::apiResource('report', 'ReportController', [
 	'only' => ['index'],
 ]);
 
-Route::apiResource('donnation', 'DonnationController');
+Route::apiResource('donation', 'DonnationController');
+
+Route::apiResource('faq', 'FAQController');
+Route::apiResource('category', 'CategoryController');

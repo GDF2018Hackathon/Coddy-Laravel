@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
       DB::table('users')->insert([
         'name' => 'Klenzo',
         'nickname' => 'klenzo',
-        'github_id' => 10270234,
+        'social_id' => 10270234,
         'email' => 'crea2luxe@hotmail.fr',
         'newsletter' => false
       ]);
