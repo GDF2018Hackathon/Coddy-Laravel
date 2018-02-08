@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "217bae1407d38404e96eebf4c157ce88",
+    "content-hash": "f89547a5b550e3f0a1745cdd47ff4efa",
     "packages": [
         {
             "name": "bschmitt/laravel-amqp",
@@ -1907,50 +1907,6 @@
                 "random"
             ],
             "time": "2017-09-27T21:40:39+00:00"
-        },
-        {
-            "name": "pedrofornaza/monolog-mysql",
-            "version": "v0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pedrofornaza/monolog-mysql.git",
-                "reference": "85db19ad27bc29c71a3abaa8aba35bf661ee3e69"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pedrofornaza/monolog-mysql/zipball/85db19ad27bc29c71a3abaa8aba35bf661ee3e69",
-                "reference": "85db19ad27bc29c71a3abaa8aba35bf661ee3e69",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.9"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Fornaza": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Pedro Fornaza",
-                    "email": "pedro.fornaza@gmail.com"
-                }
-            ],
-            "description": "Laravel 5 MySQL driver for Monolog",
-            "homepage": "https://github.com/pedrofornaza/monolog-mysql",
-            "keywords": [
-                "laravel",
-                "laravel5",
-                "log",
-                "monolog",
-                "mysql"
-            ],
-            "time": "2016-03-02T00:32:01+00:00"
         },
         {
             "name": "php-amqplib/php-amqplib",

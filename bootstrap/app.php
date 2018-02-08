@@ -42,8 +42,9 @@ $app->singleton(
 );
 
 $app->configureMonologUsing(function($monolog) use($app) {
-    $monolog->pushHandler(new Fornaza\Monolog\Handler\MysqlHandler());
+    $monolog->pushHandler(new Logger\Monolog\Handler\MysqlHandler());
 });
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
