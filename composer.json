@@ -9,13 +9,17 @@
         "bschmitt/laravel-amqp": "^1.2",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
+        "laravel/horizon": "^1.1",
         "laravel/passport": "^4.0",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
+        "markhilton/monolog-mysql": "^0.1.6",
+        "monolog/monolog": "^1.23",
+        "pedrofornaza/monolog-mysql": "v0.1",
+        "php-console/php-console": "^3.1",
         "phpmetrics/phpmetrics": "^2.3",
-        "tymon/jwt-auth": "1.0.0-rc.1",
-        "laravel/horizon": "^1.1",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "tymon/jwt-auth": "1.0.0-rc.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",

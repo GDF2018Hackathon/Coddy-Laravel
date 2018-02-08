@@ -41,6 +41,9 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app->configureMonologUsing(function($monolog) use($app) {
+    $monolog->pushHandler(new Fornaza\Monolog\Handler\MysqlHandler());
+});
 /*
 |--------------------------------------------------------------------------
 | Return The Application
