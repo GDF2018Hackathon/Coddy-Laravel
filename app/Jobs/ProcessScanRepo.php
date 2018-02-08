@@ -75,7 +75,7 @@ class ProcessScanRepo implements ShouldQueue
 
       //if there is no folder for this repo, we create one and clone the repo
       if(!is_dir('/tmp/'.$repo_id)){
-        // $this->exeCommand('mkdir /tmp/'.$repo_id);
+        $this->exeCommand('mkdir /tmp/'.$repo_id);
         $this->exeCommand('git clone '. $repo_clone .' /tmp/'.$repo_id);
         $this->exeCommand('cd /tmp/'.$repo_id.' && git checkout '.$this->branch);
       }
@@ -88,9 +88,7 @@ class ProcessScanRepo implements ShouldQueue
       $snifResult = \App::call('App\Http\Controllers\SnifController@scan', ['id' => $repo_id, 'path' => $path]);
 
       $snifResult_finale = [];
-
       $snifResult = $snifResult->original;
-
       $snifResult_toparse = (array) $snifResult->files;
 
 

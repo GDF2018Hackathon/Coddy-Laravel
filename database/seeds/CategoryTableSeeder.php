@@ -18,5 +18,11 @@ class CategoryTableSeeder extends Seeder
           'status' => true,
           'created_at' => Carbon::now()->format('Y-m-d H:i:s')
       ]);
+      DB::table('categories')->insert([
+          'name' => "request",
+          'slug' => 'request',
+          'status' => true,
+          'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+      ]);
     }
 }

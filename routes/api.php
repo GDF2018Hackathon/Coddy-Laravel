@@ -88,5 +88,12 @@ Route::apiResource('report', 'ReportController', [
 
 Route::apiResource('donation', 'DonnationController');
 
-Route::apiResource('faq', 'FAQController');
-Route::apiResource('category', 'CategoryController');
+Route::group(['prefix' => 'faq'], function() {
+	Route::get('/', 'FAQController@index');
+  Route::get('/{id}', 'FAQController@show');
+	Route::get('/category/{id}', 'FAQController@section');
+});
+Route::group(['prefix' => 'category'], function() {
+	Route::get('/', 'CategoryController@index');
+  Route::get('/{id}', 'CategoryController@show');
+});
