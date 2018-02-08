@@ -28,11 +28,11 @@ class UserController extends Controller
        Auth::loginUsingId($id[0]["id"]);
         if(Auth::check()){
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
-            return response()->json(['success' => $success], $this->successStatus);
+            $success['token'] =  $user->createToken('Coddy')->accessToken;
+            return redirect('/project');
         }
         else{
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['code' => 401, 'message'=>'Unauthorised'], 401);
         }
     }
 
@@ -61,7 +61,7 @@ class UserController extends Controller
           $user->api_token = $token;
           $user->save();
           Auth::login($user);
-          $success['token'] =  $user->createToken('MyApp')->accessToken;
+          $success['token'] =  $user->createToken('Coddy')->accessToken;
           $success['name'] =  $user->name;
           return response()->json(['success'=>$success], $this->successStatus);
         }else {
@@ -73,11 +73,11 @@ class UserController extends Controller
                $user = Auth::user();
                $userExist->api_token = $token;
                $userExist->save();
-               $success['token'] =  $user->createToken('MyApp')->accessToken;
-               return response()->json(['success' => $success], $this->successStatus);
+               $success['token'] =  $user->createToken('Coddy')->accessToken;
+               return redirect('/project');
            }
            else{
-               return response()->json(['error'=>'Unauthorised'], 401);
+               return response()->json(['code' => 401, 'message'=>'Unauthorised'], 401);
            }
         }
 
@@ -107,7 +107,7 @@ class UserController extends Controller
           $user->newsletter = false;
           $user->save();
           Auth::login($user);
-          $success['token'] =  $user->createToken('MyApp')->accessToken;
+          $success['token'] =  $user->createToken('Coddy')->accessToken;
           $success['name'] =  $user->name;
           return response()->json(['success'=>$success], $this->successStatus);
         }else {
@@ -119,11 +119,11 @@ class UserController extends Controller
            if(!empty($userArray)){
              Auth::login($userExist, true);
                $user = Auth::user();
-               $success['token'] =  $user->createToken('MyApp')->accessToken;
-               return response()->json(['success' => $success], $this->successStatus);
+               $success['token'] =  $user->createToken('Coddy')->accessToken;
+               return redirect('/project');
            }
            else{
-               return response()->json(['error'=>'Unauthorised'], 401);
+               return response()->json(['code' => 401, 'message'=>'Unauthorised'], 401);
            }
         }
 
@@ -139,7 +139,7 @@ class UserController extends Controller
         if($user != null){
           return response()->json(['success' => $user], $this->successStatus);
         }else {
-          return response()->json(["code"=>403 ,'message'=>"You don't have permission to access"], 403);
+          return response()->json(["code" => 401, 'message' => "You don't have permission to access"], 401);
         }
     }
 }

@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/project';
 
     /**
      * Create a new controller instance.
@@ -81,9 +81,7 @@ class LoginController extends Controller
         if (sizeOf($id) > 0) {
           $userExist = User::find($id[0]["id"]);
           Auth::login($userExist);
-          return response()->json([
-              'data' => $userExist->toarray(),
-          ]);
+          redirect('/project');
         }
 
         // if ($this->attemptLogin($request)) {

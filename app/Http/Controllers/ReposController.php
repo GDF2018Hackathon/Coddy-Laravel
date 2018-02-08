@@ -14,7 +14,7 @@ class ReposController extends  Controller
 {
 	public $username;
 
-	public function index($source = 'github')
+	public function index()
 	{
 		if(Auth::check()){
 				$user = Auth::user();
@@ -27,7 +27,7 @@ class ReposController extends  Controller
 				}
 		}
 		else{
-				return response()->json(['error'=>'Unauthorised'], 401);
+				return response()->json(["code" => 401, 'message' => 'Unauthorised'], 401);
 		}
 	}
 
@@ -37,7 +37,7 @@ class ReposController extends  Controller
 		return response()->json(APIGITHUB::getRepos($this->username));
 	}
 
-	public function getDetailRepo($name, $source = 'github')
+	public function getDetailRepo($name)
 	{
 		// URL : https://api.github.com/repos/{USERNAME}/{NAME}
 		//return response()->json([Auth::user(), $this->username]);
@@ -60,7 +60,9 @@ class ReposController extends  Controller
 		];
 		if(Auth::check()){
 			$user = Auth::user();
+			$this->user = $user;
 			$this->username = $user->nickname;
+
 			if( preg_match('/^[0-9]+$/', $this->user->social_id)	){
 				$res = APIGITHUB::getRepo($this->username, $name);
 				if( !isset($res->id) || empty($res->id)){
@@ -89,7 +91,7 @@ class ReposController extends  Controller
 				return response()->json($result);
 			}
 		}else{
-			return response()->json(['error'=>'Unauthorised'], 401);
+			return response()->json(['code' => 401, 'message' => 'Unauthorised'], 401);
 		}
 	}
 }
