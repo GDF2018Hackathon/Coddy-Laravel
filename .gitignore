@@ -6,7 +6,12 @@ npm-debug.log
 ./bootstrap/compiled.php
 ./app/storage/
 
+./storage/reports/
+
 ./redis/dump.rdb
+./redis
+
+*/dump.rdb
 
 # Laravel 5 & Lumen specific
 public/storage

@@ -55,7 +55,7 @@ return [
     */
 
     'trim' => [
-        'recent' => 60,
+        'recent' => 300,
         'failed' => 10080,
     ],
 
