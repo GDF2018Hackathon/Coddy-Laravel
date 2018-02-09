@@ -18,7 +18,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\User;
-use Mail; 
+use Mail;
 /**
  * @mixin \Eloquent
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -97,7 +97,7 @@ class ProcessScanRepo implements ShouldQueue
       $snifResult_finale = [];
       $snifResult = $snifResult->original;
 
-      if( $snifResult->files ){
+      if( property_exists($snifResult, "files") ){
         $snifResult_toparse = (array) $snifResult->files;
 
         foreach ($snifResult_toparse as $key => $value) {
@@ -125,13 +125,21 @@ class ProcessScanRepo implements ShouldQueue
       $report->created_at = Carbon::now('Europe/Paris');
       $report->save();
 
-
-       Mail::send('mails.html.rapport', ['param1' => 'content1'], function ($m) use ($user) {
-         $m->from('expediteur@coddy-app.com', 'sender name');
-         $m->to('destinataire@gmail.com')->subject('mail subject');
-       });
-
-
+      if( !empty(Auth::user()->name) ){
+        $NAME = Auth::user()->name;
+      }else{
+        $NAME = Auth::user()->nickname;
+      }
+      $mailParams = [
+          'PROJECT' => $report->project_name,
+          'ID_REPORT' => $report->repo_id,
+          'NAME' => $NAME,
+          'URL_REPORT' => env('APP_URL').'/report/'.$report->code
+      ];
+      Mail::send('mails.html.rapport', $mailParams, function ($m) use ($user) {
+            $m->from('contact@coddy.me', 'Coddy Scan');
+            $m->to($user->email)->subject('Coddy - Scan result');
+      });
       return $this->code;
     }
 }

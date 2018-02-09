@@ -29,7 +29,7 @@ class UserController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             $success['token'] =  $user->createToken('Coddy')->accessToken;
-            return redirect('/project');
+            return response()->json(['success'=>$success], $this->successStatus);
         }
         else{
             return response()->json(['code' => 401, 'message'=>'Unauthorised'], 401);
@@ -74,7 +74,7 @@ class UserController extends Controller
                $userExist->api_token = $token;
                $userExist->save();
                $success['token'] =  $user->createToken('Coddy')->accessToken;
-               return redirect('/project');
+              return response()->json(['success'=>$success], $this->successStatus);
            }
            else{
                return response()->json(['code' => 401, 'message'=>'Unauthorised'], 401);
@@ -120,7 +120,7 @@ class UserController extends Controller
              Auth::login($userExist, true);
                $user = Auth::user();
                $success['token'] =  $user->createToken('Coddy')->accessToken;
-               return redirect('/project');
+               return response()->json(['success'=>$success], $this->successStatus);
            }
            else{
                return response()->json(['code' => 401, 'message'=>'Unauthorised'], 401);
