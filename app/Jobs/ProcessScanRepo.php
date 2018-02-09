@@ -15,10 +15,10 @@ use App\Http\Controllers\ApiGithubController;
 use App\Http\Controllers\ReportController;
 use App\Report;
 use Carbon\Carbon;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\User;
-
+use Mail; 
 /**
  * @mixin \Eloquent
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -124,6 +124,13 @@ class ProcessScanRepo implements ShouldQueue
       $report->content_url = 'https://github.com/'. $github->full_name .'/blob/'. $this->branch .'/';
       $report->created_at = Carbon::now('Europe/Paris');
       $report->save();
+
+
+       Mail::send('mails.html.rapport', ['param1' => 'content1'], function ($m) use ($user) {
+         $m->from('expediteur@coddy-app.com', 'sender name');
+         $m->to('destinataire@gmail.com')->subject('mail subject');
+       });
+
 
       return $this->code;
     }

@@ -178,8 +178,6 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Barryvdh\Debugbar\ServiceProvider::class,
-        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-        Fornaza\Laravel\Provider\MonologMysqlHandlerServiceProvider::class,
         Logger\Laravel\Provider\MonologMysqlHandlerServiceProvider::class,
 
     ],
