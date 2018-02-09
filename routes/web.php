@@ -16,8 +16,17 @@ Route::get('/', function()
   return redirect('/api');
 });
 
+Route::get('/logout', function()
+{
+  return redirect('/api/logout');
+});
+
+Route::get('/project', function(){
+  return view('welcome');
+});
+
 //
-// Auth::routes();
+Auth::routes();
 //
 // Route::get('login/github', 'Auth\LoginController@redirectToProvider');
 // Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');

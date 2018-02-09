@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -17,9 +16,7 @@ trait ProcessTrait
   public function exeCommand($commande)
   {
     $process = new Process($commande);
-
     $process->start();
-
     $process->wait();
 
     return $process->getOutput();

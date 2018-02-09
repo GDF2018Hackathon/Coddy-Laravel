@@ -55,26 +55,30 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['prefix' => 'scan', "middleware" => ['web','isuserapi']], function() {
   Route::get('/', function()
   {
-      return response(['code' => 400, 'message' => 'Hello, You should have a scan ID'], 400)
-              ->header('Content-Type', 'application/json')
-              ->header('Accept', 'application/json');
+    return redirect()->route('Error400Bad');
+
   });
-  Route::get('/test/{repoName}', 'ReportController@testScan');
+  // Route::get('/test/{repoName}', 'ReportController@testScan');
   Route::get('/metric/{id}/{path?}', 'MetricController@scan');
-  Route::get('/{user}/{reponame}/{branch?}/{path?}', 'ReportController@scanAll');
+  Route::get('/{reponame}/{branch?}/{path?}/{user?}', 'ReportController@scanAll');
   // Route::get('/snif/{id}/', 'SnifController@scan');
 });
 Route::group(['prefix' => 'repo', "middleware" => ['web','isuserapi']], function() {
-  Route::get('all/{source?}', 'ReposController@index');
+  Route::get('/', function()
+  {
+    return redirect()->route('Error400Bad');
+
+  });
+  Route::get('all', 'ReposController@index');
   // Route::get('getListRepos/{username?}', 'ReposController@getListRepos');
-  Route::get('{name}/{source?}', 'ReposController@getDetailRepo');
+  Route::get('{name}', 'ReposController@getDetailRepo');
 });
 
 
 Route::group(['prefix' => 'report'], function() {
-	Route::get('/', 'ReportController@index');
-	Route::get('/{code}', 'ReportController@getReport')->where('code', '[a-zA-Z0-9\-]{10,30}');
-	Route::get('/mail/{code}', 'ReportController@sendMail')->where(['code' => '[a-zA-Z0-9]{10,30}']);
+  Route::get('/', 'ReportController@index');
+  Route::get('/mail/{code}', 'ReportController@sendMail')->where('code', '[a-zA-Z0-9\-]{8,30}')->middleware(['web', 'isuserapi'])->name('SendMailRoute');
+	Route::get('/{code}', 'ReportController@getReport')->where('code', '[a-zA-Z0-9\-]{8,30}');
 });
 
 Route::apiResource('report', 'ReportController', [
@@ -97,3 +101,19 @@ Route::group(['prefix' => 'category'], function() {
 	Route::get('/', 'CategoryController@index');
   Route::get('/{id}', 'CategoryController@show');
 });
+
+Route::get('/error400', function(Request $request)
+{
+    return response(['code' => 400, 'message' => 'Hello, You should have an ID'], 400)
+            ->header('Content-Type', 'application/json')
+            ->header('Accept', 'application/json');
+})->name('Error400Bad');
+
+Route::get('/error404', function(Request $request)
+{
+    return response(['code' => 404, 'message' => 'Page not found'], 404)
+            ->header('Content-Type', 'application/json')
+            ->header('Accept', 'application/json');
+})->name('Error404Bad');
+
+// Route::apiResource('donnation', 'DonnationController');

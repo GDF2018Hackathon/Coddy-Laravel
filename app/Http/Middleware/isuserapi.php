@@ -18,7 +18,7 @@ class isuserapi
       if (Auth::user()) {
         return $next($request);
       }else {
-        return response()->json(["code"=>403 ,'message'=>"You don't have permission to access"], 403);
+        return response()->json(["code" => 401 , 'message' => "You don't have permission to access"], 401);
       }
     }
 }

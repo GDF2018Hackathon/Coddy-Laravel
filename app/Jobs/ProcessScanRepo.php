@@ -12,6 +12,7 @@ use App\Http\Controllers\MetricController;
 use App\Http\Controllers\SnifController;
 use App\Http\Controllers\ProcessTrait;
 use App\Http\Controllers\ApiGithubController;
+use App\Http\Controllers\ReportController;
 use App\Report;
 use Carbon\Carbon;
 use Auth;
@@ -31,18 +32,27 @@ class ProcessScanRepo implements ShouldQueue
     private $repo_name;
     private $path;
     private $branch;
+    private $code;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($user_name, $repo_name, $path = '/', $branch = 'master')
+    public function __construct($user_name, $repo_name, $path = '/', $branch = 'master', $code)
     {
         $this->user_name = $user_name;
         $this->repo_name = $repo_name;
         $this->path = $path;
         $this->branch = $branch;
+        $this->code = $code;
+
+    }
+
+
+    public function tags()
+    {
+      return ['ProcessScanRepo'];
     }
 
     /**
@@ -54,18 +64,16 @@ class ProcessScanRepo implements ShouldQueue
     {
       $user = User::where('nickname', $this->user_name)->first();
       if($user == null){
-        Log::warning("ProcessScanRepo #63 - Can't find user !");
+        Log::info("ProcessScanRepo #58 - Can't find user !");
         return response()->json(['code' => 403, 'message' => "Can't find user !"], 403);
       }
 
       $path = '/'. str_replace('-', '/', trim('/', $this->path));
 
-      // Log::info($this->repo_name);
-
       $github = ApiGithubController::getRepo($this->user_name, $this->repo_name);
 
       if( !isset( $github->id ) || empty( $github->id ) ){
-        Log::warning("ProcessScanRepo #64 - Github's api too request !");
+        Log::info("ProcessScanRepo #69 - Github's api too request !");
         return response()->json(['code' => 403, 'message' => "Github's api too request !"], 403);
       }
 
@@ -73,15 +81,14 @@ class ProcessScanRepo implements ShouldQueue
       $repo_id = $github->id;
       $repo_clone = $github->clone_url;
 
-      //if there is no folder for this repo, we create one and clone the repo
-      if(!is_dir('/tmp/'.$repo_id)){
-        $this->exeCommand('mkdir /tmp/'.$repo_id);
-        $this->exeCommand('git clone '. $repo_clone .' /tmp/'.$repo_id);
-        $this->exeCommand('cd /tmp/'.$repo_id.' && git checkout '.$this->branch);
+      $pathStorage = ReportController::StoragePath() .'/'. $repo_id;
+      if(!is_dir($pathStorage)){
+        $command_gitclone = 'git clone '. $repo_clone .' '. ReportController::StoragePath() .'/'.$repo_id;
+        $this->exeCommand($command_gitclone);
       }
       else{
-        $this->exeCommand('cd /tmp/'.$repo_id.' && git pull');
-        $this->exeCommand('cd /tmp/'.$repo_id.' && git checkout '.$this->branch);
+        $this->exeCommand('cd '. $pathStorage.' && git pull');
+        $this->exeCommand('cd '. $pathStorage.' && git checkout '.$this->branch);
       }
 
       $metricResult = \App::call('App\Http\Controllers\MetricController@scan', ['id' => $repo_id, 'path' => $path]);
@@ -89,33 +96,35 @@ class ProcessScanRepo implements ShouldQueue
 
       $snifResult_finale = [];
       $snifResult = $snifResult->original;
-      $snifResult_toparse = (array) $snifResult->files;
 
+      if( $snifResult->files ){
+        $snifResult_toparse = (array) $snifResult->files;
 
-      foreach ($snifResult_toparse as $key => $value) {
-        $snifResult_finale[str_replace('/tmp/'.$repo_id.'/', '', $key)] = $value;
+        foreach ($snifResult_toparse as $key => $value) {
+          $snifResult_finale[str_replace($pathStorage.'/', '', $key)] = $value;
+        }
+
+        $snifResult->files = $snifResult_finale;
       }
 
-      $snifResult->files = $snifResult_finale;
 
       $result = [
         'metric' => $metricResult,
         'sniffer' => $snifResult
       ];
 
-
       $report = new Report;
-      $report->code = strtoupper(uniqid());
+      $report->code = $this->code;
       $report->repo_id = $repo_id;
       $report->project_name = $this->repo_name;
       $report->user_id = $user->id;
       $report->email = $user->email;
       $report->public = $github->private;
-      $report->content = serialize($result);
+      $report->content = json_encode($result);
       $report->content_url = 'https://github.com/'. $github->full_name .'/blob/'. $this->branch .'/';
       $report->created_at = Carbon::now('Europe/Paris');
       $report->save();
 
-      return $report;
+      return $this->code;
     }
 }
