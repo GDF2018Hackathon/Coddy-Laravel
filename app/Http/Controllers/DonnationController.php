@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Donnation;
 use Illuminate\Http\Request;
-
 class DonnationController extends Controller
 {
 

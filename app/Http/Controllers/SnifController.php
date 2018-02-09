@@ -6,7 +6,6 @@ ini_set('max_execution_time', 300);
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProcessTrait;
-
 class SnifController extends Controller
 {
     use ProcessTrait;
