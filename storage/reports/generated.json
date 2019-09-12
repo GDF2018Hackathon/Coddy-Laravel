@@ -1,0 +1,41 @@
+[
+  {
+    "_id": "5a719925588861bacf8a9ab4",
+    "index": 0,
+    "isActive": true,
+    "balance": "$2,877.95",
+    "picture": "http://placehold.it/128x128",
+    "eyeColor": "blue",
+    "name": "Stafford Fox",
+    "gender": "male",
+    "company": "OBONES",
+    "email": "staffordfox@obones.com",
+    "about": "Officia in cupidatat nulla mollit mollit eu duis nulla non. Ipsum aute Lorem in proident Lorem eiusmod laborum incididunt nostrud ex id. Nostrud ipsum in anim veniam exercitation tempor ad fugiat. Et ipsum adipisicing non est nisi nostrud. Reprehenderit veniam esse id do mollit qui proident ut. Dolore laboris aute ullamco id nulla aute. Non in et ex dolore qui reprehenderit cillum esse.\r\n",
+    "registered": "2015-08-20T11:39:18 -02:00",
+    "tags": [
+      "ea",
+      "nisi",
+      "in",
+      "exercitation",
+      "ad",
+      "aliqua",
+      "fugiat"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Ines Mcgowan"
+      },
+      {
+        "id": 1,
+        "name": "Angel Wooten"
+      },
+      {
+        "id": 2,
+        "name": "Chavez Donaldson"
+      }
+    ],
+    "greeting": "Hello, Stafford Fox! You have 5 unread messages.",
+    "favoriteFruit": "strawberry"
+  }
+]

@@ -11,6 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function()
+{
+  return redirect('/api');
 });
+
+Route::get('/logout', function()
+{
+  return redirect('/api/logout');
+});
+
+Route::get('/project', function(){
+  return view('welcome');
+});
+
+Auth::routes();
